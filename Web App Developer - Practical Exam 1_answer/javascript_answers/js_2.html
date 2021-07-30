@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Javascript #1</title>
+</head>
+<body>
+    <h3>Contact FORM</h3>
+	<form action = "js_2.html" method = "post" >
+		<label for="id">ID</label><br>
+		<input type = "text" id = "id">
+		
+		<br><br>
+		
+		<label for="firstname">FIRST NAME</label><br>
+		<input type = "text" id = "firstname">
+		
+		<br><br>
+		
+		<label for="lastname">LAST NAME</label><br>
+		<input type = "text" id = "lastname">
+		
+		<br><br>
+		<label for="birthday">BIRTHDAY</label><br>
+		<input type = "text" id = "birthday">
+		
+		<br><br>
+		
+		<span>GENDER</span>
+		<br>
+		<input type="radio" id="male" name="gender">
+		<label for="male">Male</label><br>
+		<input type="radio" id="female" name="gender">
+		<label for="female">Female</label><br>
+		
+		<br><br>
+		<span>KNOW LANGUAGE</span>
+		<br>
+		<input type="checkbox" id="english" value="English">
+		<label for="english">English</label><br>
+		<input type="checkbox" id="japanese" value="Japanese">
+		<label for="japanese">Japanese</label><br>
+		<input type="checkbox" id="chinese" value="Chinese">
+		<label for="chinese">Chinese</label><br>
+		<br>
+	</form>
+<script>
+
+//list of JSON DATA
+	var json_data_lists = 	`{
+								"success":true,
+								"employees":[
+									{
+										"id":1,
+										"firstName":"John",
+										"lastName":"Doe",
+										"birthday":"1990-05-07",
+										"gender":{
+											"male":true,
+											"female":false
+											},
+										"knownLanguage":[
+											"English",
+											"Japanese",
+											"Chinese"]
+									},
+									{
+										"id":2,
+										"firstName":"Lina",
+										"lastName":"Art",
+										"birthday":"1994-08-05",
+										"gender":{
+											"male":false,
+											"female":true
+											},
+										"knownLanguage":[
+											"English",
+											"Japanese"]
+									}
+									]
+								}`;
+
+	//parse the JSON DATA
+	var json_obj = JSON.parse(json_data_lists);
+	
+	//initialize variables
+	var j = 1;
+	var temp;
+	var temp_a = [];
+	var count = json_obj['employees'].length-1;
+	
+	//loop for sorting json id from 1 to N
+	if( json_obj['success'] == true )
+	{
+		for(var x = 0; x < count; x++ )
+		{
+			for( var i = 0; i < count; i++ )
+			{
+				
+				//order the id and assign a value of temp_a via swapping data
+				if( json_obj['employees'][i]['id'] > json_obj['employees'][i+j]['id'] )
+				{
+						temp = json_obj['employees'][i];
+						temp_a[i] = json_obj['employees'][i+1];
+						temp_a[i+1] = temp;
+				}
+				//assign value of temp_a if the data has no unordered id
+				else{
+						temp_a[i] = json_obj['employees'][i];
+						temp_a[i+1] = json_obj['employees'][i+1];
+				}
+			}
+		}
+		
+		//initialize
+		var temp_a_index = 0;
+		
+		//moving all data to contact form
+		document.getElementById("id").value = temp_a[temp_a_index]['id'];
+		document.getElementById("firstname").value = temp_a[temp_a_index]['firstName'];
+		document.getElementById("lastname").value = temp_a[temp_a_index]['lastName'];
+		document.getElementById("birthday").value = temp_a[temp_a_index]['birthday'];
+		
+		//check for gender
+		if( temp_a[temp_a_index]['gender']['male'] == true )
+		{
+			document.getElementById("male").checked = true;
+		}
+		else
+		{
+			document.getElementById("female").checked = true;
+		}
+		
+		//check for known language
+		if( ( temp_a[temp_a_index]['knownLanguage'][0] ) == "English" )
+		{
+			document.getElementById("english").checked = true;
+		}
+		else
+		{
+			document.getElementById("english").checked = false;
+		}
+		
+		if( ( temp_a[temp_a_index]['knownLanguage'][1] ) == "Japanese" )
+		{
+			document.getElementById("japanese").checked = true;
+		}
+		else
+		{
+			document.getElementById("japanese").checked = false;
+		}
+		
+		if( ( temp_a[temp_a_index]['knownLanguage'][2] ) == "Chinese" )
+		{
+			document.getElementById("chinese").checked = true;
+		}
+		else
+		{
+			document.getElementById("chinese").checked = false;
+		}
+	}
+</script>
+</body>
+</html>

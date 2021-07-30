@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Javascript #1</title>
+</head>
+<body>
+<h3>TheQuickBrownFoxJumpsOverTheLazyDog</h3>
+	<p id="mytext">a</p>
+	
+	<script>
+	//intialize
+	let a = "TheQuickBrownFoxJumpsOverTheLazyDog";
+	let b = [];
+	b = a.split(/(?=[A-Z])/);
+	
+	//loop
+	for(let x = 1; x < b.length; x++ )
+	{
+		//lower case all the text starting b[1] to b[n]
+		b[x] = b[x].toLowerCase();
+	}
+	
+	//join all text from each array elements
+	document.getElementById('mytext').innerHTML = b.join(" ");
+	
+	</script>
+</body>
+</html>
